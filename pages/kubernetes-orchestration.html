@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kubernetes & Orchestration | TechOps - Scale Like Netflix in 30 Days</title>
+    <meta name="description" content="Stop Kubernetes complexity from slowing you down. Get enterprise-grade clusters that scale automatically with 99.9% uptime. Free consultation included." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <style>
+      .page-hero { 
+        padding: 120px 0 80px; 
+        background: linear-gradient(180deg, rgba(6,78,59,.2), rgba(6,78,59,.7)), 
+        url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat; 
+        color: white;
+        text-align: center;
+      }
+      .page-hero h1 { 
+        margin: 0 0 20px; 
+        font-size: clamp(2.5rem, 5vw, 4rem); 
+        font-weight: 800;
+      }
+      .hero-subtext {
+        font-size: 1.25rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+      }
+      .hero-cta {
+        margin-top: 30px;
+      }
+      .benefit-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+      .benefit-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        border-left: 4px solid #059669;
+      }
+      .benefit-card h3 {
+        color: #059669;
+        margin-bottom: 1rem;
+      }
+      .stats-section {
+        background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+        padding: 4rem 0;
+        margin: 3rem 0;
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        text-align: center;
+      }
+      .stat-item {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #059669;
+        display: block;
+      }
+      .cta-section {
+        background: linear-gradient(135deg, #059669, #047857);
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+        margin: 3rem 0;
+      }
+      .cta-section h2 {
+        margin-bottom: 1rem;
+        font-size: 2.5rem;
+      }
+      .cta-section p {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn-white {
+        background: white;
+        color: #059669;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      .btn-white:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      }
+      .process-section {
+        padding: 4rem 0;
+      }
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+      .process-step {
+        text-align: center;
+        padding: 2rem;
+      }
+      .step-number {
+        background: #059669;
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 auto 1rem;
+      }
+      .kubernetes-visual {
+        background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        padding: 3rem;
+        border-radius: 12px;
+        margin: 3rem 0;
+        text-align: center;
+      }
+      .cluster-nodes {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+      }
+      .node {
+        background: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        font-weight: 600;
+        color: #059669;
+        border: 2px solid #e2e8f0;
+      }
+      .node.active {
+        border-color: #059669;
+        background: #f0fdf4;
+      }
+      
+      /* Contact Form Styles */
+      .contact {
+        background: #f8fafc;
+        padding: 4rem 0;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 3rem;
+        align-items: start;
+      }
+      .contact-card {
+        background: white;
+        padding: 3rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      }
+      .contact-details {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      }
+      .form-row {
+        margin-bottom: 1.5rem;
+      }
+      .form-row label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #374151;
+      }
+      .form-row input,
+      .form-row select,
+      .form-row textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+      .form-row input:focus,
+      .form-row select:focus,
+      .form-row textarea:focus {
+        outline: none;
+        border-color: #059669;
+      }
+      .form-note {
+        font-size: 0.875rem;
+        color: #6b7280;
+        margin-top: 1rem;
+      }
+      .form-note a {
+        color: #059669;
+        text-decoration: underline;
+      }
+      .benefits-list {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+      }
+      .benefits-list li {
+        margin-bottom: 0.5rem;
+        padding-left: 0;
+      }
+      .detail {
+        margin-bottom: 2rem;
+      }
+      .detail h3 {
+        color: #059669;
+        margin-bottom: 0.5rem;
+      }
+      .detail ul {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0;
+      }
+      .detail li {
+        margin-bottom: 0.25rem;
+        padding-left: 0;
+      }
+      
+      @media (max-width: 768px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="../index.html#top" class="logo"><span class="logo-mark">T</span><span class="logo-text">TechOps</span></a>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav"><span class="nav-toggle-bar"></span><span class="sr-only">Toggle navigation</span></button>
+        <nav id="primary-nav" class="primary-nav">
+          <ul>
+            <li><a href="../index.html#about">About</a></li>
+            <li><a href="../index.html#services">Services</a></li>
+            <li><a href="../index.html#cases">Case Studies</a></li>
+            <li><a href="../index.html#testimonials">Testimonials</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <h1>Scale Like Netflix with Zero Kubernetes Complexity</h1>
+          <p class="hero-subtext">Stop Kubernetes from being your bottleneck. Get enterprise-grade clusters that <strong>scale automatically with 99.9% uptime</strong></p>
+          <div class="hero-cta">
+            <a href="../index.html#contact" class="btn btn-primary btn-large">Get Free Kubernetes Audit</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <header class="section-header">
+            <div class="section-badge">Why TechOps?</div>
+            <h2>While Your Team Fights Kubernetes Complexity, We Deliver <span class="gradient-text">Clusters That Just Work</span></h2>
+            <p>No more pod scheduling issues, resource bottlenecks, or scaling nightmares. We build Kubernetes that scales with your business, not against it.</p>
+          </header>
+          
+          <div class="benefit-grid">
+            <article class="benefit-card">
+              <h3>🚀 Auto-Scaling That Actually Works</h3>
+              <p>Horizontal Pod Autoscaler, Cluster Autoscaler, and custom metrics that respond to real demand. Scale from 0 to 1000 pods automatically.</p>
+            </article>
+            <article class="benefit-card">
+              <h3>🛡️ Enterprise Security by Default</h3>
+              <p>RBAC, network policies, pod security standards, and automated vulnerability scanning. Your clusters are secure from day one.</p>
+          </article>
+            <article class="benefit-card">
+              <h3>📊 99.9% Uptime Guaranteed</h3>
+              <p>Multi-zone deployments, automated failover, and proactive monitoring. Your applications stay running even when infrastructure fails.</p>
+          </article>
+            <article class="benefit-card">
+              <h3>🔧 Zero-Downtime Operations</h3>
+              <p>Rolling updates, blue-green deployments, and canary releases. Update your applications without interrupting user experience.</p>
+          </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="kubernetes-visual">
+        <div class="container">
+          <h2 style="text-align: center; margin-bottom: 2rem;">Your Kubernetes Cluster Architecture</h2>
+          <div class="cluster-nodes">
+            <div class="node active">Control Plane</div>
+            <div class="node active">Worker Node 1</div>
+            <div class="node active">Worker Node 2</div>
+            <div class="node">Auto-Scale</div>
+            <div class="node">Load Balancer</div>
+          </div>
+          <p style="margin-top: 2rem; font-size: 1.1rem; color: #64748b;">High-availability cluster with automatic scaling and failover</p>
+        </div>
+      </section>
+
+      <section class="stats-section">
+        <div class="container">
+          <h2 style="text-align: center; margin-bottom: 3rem;">Real Results from Real Clusters</h2>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-number">1000+</span>
+              <p>Pods Managed</p>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">99.95%</span>
+              <p>Cluster Uptime</p>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">Auto</span>
+              <p>Scaling</p>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">0</span>
+              <p>Manual Interventions</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section process-section">
+        <div class="container">
+          <header class="section-header">
+            <h2>Your Journey to Kubernetes Excellence in <span class="gradient-text">4 Simple Steps</span></h2>
+            <p>No complex configurations. No endless troubleshooting. Just working clusters.</p>
+          </header>
+          
+          <div class="process-grid">
+            <div class="process-step">
+              <div class="step-number">1</div>
+              <h3>Free Cluster Audit</h3>
+              <p>We analyze your current Kubernetes setup and identify performance bottlenecks, security gaps, and scaling opportunities.</p>
+            </div>
+            <div class="process-step">
+              <div class="step-number">2</div>
+              <h3>Architecture Design</h3>
+              <p>Custom cluster design using EKS, AKS, GKE, or K3s based on your workload requirements and compliance needs.</p>
+            </div>
+            <div class="process-step">
+              <div class="step-number">3</div>
+              <h3>Implementation & Testing</h3>
+              <p>Our experts build and test your cluster in 30 days, ensuring it handles your production workloads flawlessly.</p>
+            </div>
+            <div class="process-step">
+              <div class="step-number">4</div>
+              <h3>Training & Support</h3>
+              <p>Complete documentation, team training, and 24/7 support to ensure your success with Kubernetes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div class="container">
+          <h2>Ready to Scale Like the Tech Giants?</h2>
+          <p>Join 500+ companies that have already eliminated Kubernetes complexity and achieved enterprise-grade scalability with TechOps.</p>
+          <div class="cta-buttons">
+            <a href="#contact" class="btn-white">Get Free Kubernetes Audit</a>
+            <a href="#contact" class="btn-white">Book Free Consultation</a>
+          </div>
+          <p style="margin-top: 2rem; font-size: 1rem; opacity: 0.8;">No commitment required • 30-minute consultation • Free audit report worth $4,000</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="section contact">
+      <div class="container contact-grid">
+        <div class="contact-card">
+          <header class="section-header">
+            <div class="section-badge">Get Started Today</div>
+            <h2>Transform Your Kubernetes Operations in <span class="gradient-text">30 Days</span></h2>
+            <p>Tell us about your containerization goals. We'll respond within 2 hours with a personalized Kubernetes strategy.</p>
+          </header>
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" placeholder="Your full name" required />
+            </div>
+            <div class="form-row">
+              <label for="email">Work Email *</label>
+              <input type="email" id="email" name="email" placeholder="you@company.com" required />
+            </div>
+            <div class="form-row">
+              <label for="company">Company *</label>
+              <input type="text" id="company" name="company" placeholder="Your company name" required />
+            </div>
+            <div class="form-row">
+              <label for="current-k8s">Current Kubernetes Setup</label>
+              <select id="current-k8s" name="current-k8s">
+                <option value="">Select your current setup</option>
+                <option value="eks">AWS EKS</option>
+                <option value="aks">Azure AKS</option>
+                <option value="gke">Google GKE</option>
+                <option value="k3s">K3s</option>
+                <option value="on-premise">On-premise K8s</option>
+                <option value="none">No Kubernetes yet</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="workload-size">Current Workload Size</label>
+              <select id="workload-size" name="workload-size">
+                <option value="">Select workload size</option>
+                <option value="small">Small (1-50 pods)</option>
+                <option value="medium">Medium (50-200 pods)</option>
+                <option value="large">Large (200-1000 pods)</option>
+                <option value="enterprise">Enterprise (1000+ pods)</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="message">What are your biggest Kubernetes challenges? *</label>
+              <textarea id="message" name="message" rows="4" placeholder="Describe your current containerization setup, scaling issues, and goals..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-large">
+              <span class="btn-text">Get Free Kubernetes Audit</span>
+              <span class="btn-icon">🎯</span>
+            </button>
+            <p class="form-note">By submitting, you agree to our <a href="#" aria-label="Privacy Policy">Privacy Policy</a>. No spam, ever.</p>
+            <div class="form-status" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <aside class="contact-details">
+          <div class="contact-benefits">
+            <h3>Why Choose TechOps for Kubernetes?</h3>
+            <ul class="benefits-list">
+              <li>✅ Free cluster audit ($4,000 value)</li>
+              <li>✅ Auto-scaling that actually works</li>
+              <li>✅ 30-day implementation guarantee</li>
+              <li>✅ 24/7 expert support</li>
+              <li>✅ No long-term contracts</li>
+            </ul>
+          </div>
+          <div class="detail">
+            <h3>Response Time</h3>
+            <p>We respond within <strong>2 hours</strong> during business hours</p>
+          </div>
+          <div class="detail">
+            <h3>What You'll Get</h3>
+            <ul>
+              <li>• Free cluster audit report</li>
+              <li>• Custom Kubernetes architecture</li>
+              <li>• Implementation timeline & cost estimate</li>
+              <li>• 30-minute consultation call</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html#top" class="logo"><span class="logo-mark">T</span><span class="logo-text">TechOps</span></a>
+          <p class="small">© 2025 TechOps. All Rights Reserved.</p>
+        </div>
+        <nav class="footer-nav">
+          <ul>
+            <li><a href="../index.html#about">About</a></li>
+            <li><a href="../index.html#services">Services</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+  </body>
+  </html>
+
+
+
